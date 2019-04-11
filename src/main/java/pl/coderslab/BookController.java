@@ -5,6 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/books")
@@ -21,7 +25,7 @@ public class BookController {
     public String hello() {
         Book book = new Book();
         book.setTitle("Thinking in Java");
-        book.setAuthor("Bruce Eckel");
+        // book.setAuthors(new ArrayList<Author>().add(new Author()));
         bookDao.saveBook(book);
         return "Id dodanej książki to:" + book.getId();
     }
@@ -37,24 +41,20 @@ public class BookController {
         bookDao.delete(bookDao.findById(id));
     }
 
-    @RequestMapping("/newBook/{title}/{author}/{rating}/{publisher}/{description}")
+    @RequestMapping("/newBook/{title}/{rating}/{description}")
     @ResponseBody
     void saveBook(@PathVariable String title,
-                  @PathVariable String author,
                   @PathVariable BigDecimal rating,
-                  @PathVariable String publisher,
                   @PathVariable String description) {
-        bookDao.saveBook(new Book(title, author, rating, publisher, description));
+        bookDao.saveBook(new Book(title, rating, description));
     }
 
-    @RequestMapping("/update/{title}/{author}/{rating}/{publisher}/{description}")
+    @RequestMapping("/update/{title}/{rating}/{description}")
     @ResponseBody
     void updateBook(
             @PathVariable String title,
-            @PathVariable String author,
             @PathVariable BigDecimal rating,
-            @PathVariable String publisher,
             @PathVariable String description) {
-        bookDao.update(new Book(title, author, rating, publisher, description));
+        bookDao.update(new Book(title, rating, description));
     }
 }

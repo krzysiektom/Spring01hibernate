@@ -2,6 +2,8 @@ package pl.coderslab;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -13,21 +15,23 @@ public class Book {
             length = 100,
             nullable = false)
     private String title;
-    private String author;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private List<Author> authors = new ArrayList<>();
     @Column(scale = 2, precision = 4)
     private BigDecimal rating;
-    private String publisher;
+    @ManyToOne
+    private Publisher publisher;
     @Column(columnDefinition = "TEXT")
     private String description;
 
     public Book() {
     }
 
-    public Book(String title, String author, BigDecimal rating, String publisher, String description) {
+    public Book(String title, BigDecimal rating, String description) {
         this.title = title;
-        this.author = author;
         this.rating = rating;
-        this.publisher = publisher;
         this.description = description;
     }
 
@@ -47,12 +51,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public BigDecimal getRating() {
@@ -63,11 +67,11 @@ public class Book {
         this.rating = rating;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
