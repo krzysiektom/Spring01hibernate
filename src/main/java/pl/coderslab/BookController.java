@@ -54,6 +54,19 @@ public class BookController {
         return "redirect:/books/allBooks";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable Long id, Model model){
+        model.addAttribute(bookDao.findById(id));
+        return "book";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String modifyBook(@PathVariable Long id, @ModelAttribute Book book){
+        bookDao.update(book);
+        return "redirect:/books/allBooks";
+
+    }
+
     @RequestMapping(path = "/hello", produces = "text/html; charset=UTF-8")
     @ResponseBody
     public String hello() {
@@ -70,10 +83,24 @@ public class BookController {
         return bookDao.findById(id);
     }
 
-    @RequestMapping("/delete/{id}")
-    void deleteBook(@PathVariable Long id) {
-        bookDao.delete(bookDao.findById(id));
+    @GetMapping("/confirmDelete/{id}")
+    public String  confirmDeleteBook(@PathVariable Long id, Model model) {
+        model.addAttribute("id",id);
+        return "confirmDelete";
     }
+
+    @GetMapping("/confirmDelete/cancel")
+    public String  cancelDeleteBook() {
+        return "redirect:/books/allBooks";
+
+    }
+
+    @GetMapping("/confirmDelete/delete/{id}")
+    public String deleteBook(@PathVariable Long id) {
+        bookDao.delete(bookDao.findById(id));
+        return "redirect:/books/allBooks";
+    }
+
 
     @RequestMapping("/newBook/{title}/{rating}/{description}")
     @ResponseBody

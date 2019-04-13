@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: krzysztof
   Date: 13.04.19
-  Time: 15:32
+  Time: 22:37
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,12 +11,11 @@
 
 <html>
 <head>
-    <title>allbooks</title>
+    <title>confirmDelete</title>
 </head>
 <body>
-<a href="/books/addBook">Add Book</a><br>
-<c:forEach items="${allBooks}" var="book">
-    ${book.title} <a href="edit/${book.id}">Edit</a> <a href="confirmDelete/${book.id}">Delete</a> <br>
-</c:forEach>
+<a href="delete/${id}">Confirm</a>
+<a href="cancel">Cancel </a>
+
 </body>
 </html>
