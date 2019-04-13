@@ -39,14 +39,12 @@ public class AuthorController {
     public String addAuthor(@ModelAttribute Author author) {
         authorDao.save(author);
         return "redirect:/authors/allAuthors";
-
     }
 
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Long id, Model model){
         model.addAttribute(authorDao.get(id));
         return "formAuthor";
-
     }
 
     @PostMapping("/edit/{id}")
