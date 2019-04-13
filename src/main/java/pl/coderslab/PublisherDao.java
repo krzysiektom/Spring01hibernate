@@ -14,7 +14,7 @@ public class PublisherDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void savePublisher(Publisher entity) {
+    public void save(Publisher entity) {
         entityManager.persist(entity);
     }
 
@@ -22,7 +22,7 @@ public class PublisherDao {
         entityManager.merge(entity);
     }
 
-    public Publisher findById(Long id) {
+    public Publisher get(Long id) {
         return entityManager.find(Publisher.class, id);
     }
 
@@ -31,7 +31,7 @@ public class PublisherDao {
                 entity : entityManager.merge(entity));
     }
 
-    public List<Publisher> returnAllPublishers() {
+    public List<Publisher> getAll() {
         Query query = entityManager.createQuery("select p from Publisher p");
         List<Publisher> allPublishers = query.getResultList();
         return allPublishers;

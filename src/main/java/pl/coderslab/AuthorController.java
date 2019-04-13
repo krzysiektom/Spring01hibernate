@@ -1,6 +1,7 @@
 package pl.coderslab;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,19 +21,19 @@ public class AuthorController {
     @GetMapping(path = "/{id}")
     @ResponseBody
     Author authorById(@PathVariable Long id) {
-        return authorDao.findById(id);
+        return authorDao.get(id);
     }
 
     @RequestMapping("/delete/{id}")
     void deleteAuthor(@PathVariable Long id) {
-        authorDao.delete(authorDao.findById(id));
+        authorDao.delete(authorDao.get(id));
     }
 
     @RequestMapping("/newAuthor/{firstName}/{lastName}")
     @ResponseBody
     void saveAuthor(@PathVariable String firstName,
                   @PathVariable String lastName) {
-        authorDao.saveAuthor(new Author(firstName, lastName));
+        authorDao.save(new Author(firstName, lastName));
     }
 
     @RequestMapping("/update/{firstName}/{lastName}")

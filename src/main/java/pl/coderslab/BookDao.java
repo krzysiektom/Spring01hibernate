@@ -14,7 +14,7 @@ public class BookDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void saveBook(Book entity) {
+    public void save(Book entity) {
         entityManager.persist(entity);
     }
 
@@ -30,11 +30,9 @@ public class BookDao {
         entityManager.remove(entityManager.contains(entity) ?
                 entity : entityManager.merge(entity));
     }
-
     public List<Book> returnAllBooks() {
-        Query query = entityManager.createQuery("select b from Book b");
+        Query query = entityManager.createQuery("select p from Book p");
         List<Book> allBooks = query.getResultList();
         return allBooks;
     }
-
 }

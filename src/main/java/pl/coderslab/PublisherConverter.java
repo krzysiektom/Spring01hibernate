@@ -10,6 +10,6 @@ public class PublisherConverter implements Converter<String, Publisher> {
 
     @Override
     public Publisher convert(String s) {
-        return publisherDao.findById(Long.parseLong(s));
+        return publisherDao.get(Long.parseLong(s));
     }
 }

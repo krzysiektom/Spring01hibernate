@@ -26,7 +26,7 @@ public class BookController {
 
     @ModelAttribute("allPublishers")
     public List<Publisher> getAllPublisher() {
-        return publisherDao.returnAllPublishers();
+        return publisherDao.getAll();
     }
 
     @ModelAttribute("allBooks")
@@ -50,7 +50,7 @@ public class BookController {
     public String addBook(@ModelAttribute Book book) {
 //        Publisher publisher = publisherDao.getPublisherById(book.getPublisher().getId());
 //        book.setPublisher(publisher);
-        bookDao.saveBook(book);
+        bookDao.save(book);
         return "redirect:/books/allBooks";
     }
 
@@ -60,7 +60,7 @@ public class BookController {
         Book book = new Book();
         book.setTitle("Thinking in Java");
         // book.setAuthors(new ArrayList<Author>().add(new Author()));
-        bookDao.saveBook(book);
+        bookDao.save(book);
         return "Id dodanej książki to:" + book.getId();
     }
 
@@ -80,7 +80,7 @@ public class BookController {
     void saveBook(@PathVariable String title,
                   @PathVariable BigDecimal rating,
                   @PathVariable String description) {
-        bookDao.saveBook(new Book(title, rating, description));
+        bookDao.save(new Book(title, rating, description));
     }
 
     @RequestMapping("/update/{title}/{rating}/{description}")

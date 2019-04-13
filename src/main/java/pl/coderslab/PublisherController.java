@@ -21,18 +21,18 @@ public class PublisherController {
     @GetMapping(path = "/{id}")
     @ResponseBody
     Publisher publisherById(@PathVariable Long id) {
-        return publisherDao.findById(id);
+        return publisherDao.get(id);
     }
 
     @RequestMapping("/delete/{id}")
     void deletePublisher(@PathVariable Long id) {
-        publisherDao.delete(publisherDao.findById(id));
+        publisherDao.delete(publisherDao.get(id));
     }
 
     @RequestMapping("/newPublisher/{name}")
     @ResponseBody
     void savePublisher(@PathVariable String name) {
-        publisherDao.savePublisher(new Publisher(name));
+        publisherDao.save(new Publisher(name));
     }
 
     @RequestMapping("/update/{name}")
