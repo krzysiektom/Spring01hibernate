@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/publishers")
 public class PublisherController {
+
     private final PublisherDao publisherDao;
 
     @Autowired

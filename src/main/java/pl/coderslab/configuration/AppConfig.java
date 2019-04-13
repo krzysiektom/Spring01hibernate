@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import pl.coderslab.PublisherConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -29,6 +31,18 @@ import java.util.Properties;
 @ComponentScan(basePackages = "pl.coderslab")
 @EnableTransactionManagement
 public class AppConfig implements WebMvcConfigurer {
+
+    @Override //dodawanie konwertera
+    public void addFormatters(FormatterRegistry formatterRegistry) {
+        formatterRegistry.addConverter(getPublisherConverter());
+    }
+
+    @Bean   //definiowanie ziarna konwertera
+    public PublisherConverter getPublisherConverter() {
+        return new PublisherConverter();
+    }
+
+
     @Bean
     public ViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();

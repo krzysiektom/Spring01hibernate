@@ -14,11 +14,30 @@ import java.util.Set;
 @RequestMapping("/books")
 public class BookController {
     private final BookDao bookDao;
+    private final PublisherDao publisherDao;
+
 
     @Autowired
-    public BookController(BookDao bookDao) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao) {
         this.bookDao = bookDao;
+        this.publisherDao = publisherDao;
     }
+
+    @ModelAttribute("allPublishers")
+    public List<Publisher> getAllPublisher() {
+        return publisherDao.returnAllPublishers();
+    }
+
+    @ModelAttribute("allBooks")
+    public List<Book> getAllBooks() {
+        return bookDao.returnAllBooks();
+    }
+
+    @GetMapping("/allBooks")
+    public String showAllBooks() {
+        return "allbooks";
+    }
+
 
     @RequestMapping(path = "/hello", produces = "text/html; charset=UTF-8")
     @ResponseBody
