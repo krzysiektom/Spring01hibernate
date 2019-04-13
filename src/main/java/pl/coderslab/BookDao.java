@@ -30,8 +30,16 @@ public class BookDao {
         entityManager.remove(entityManager.contains(entity) ?
                 entity : entityManager.merge(entity));
     }
+
     public List<Book> returnAllBooks() {
         Query query = entityManager.createQuery("select p from Book p");
+        List<Book> allBooks = query.getResultList();
+        return allBooks;
+    }
+
+    public List<Book> getRatingList(int rating) {
+        Query query = entityManager.createQuery("select p from Book p WHERE rating>:rating");
+        query.setParameter("rating",rating);
         List<Book> allBooks = query.getResultList();
         return allBooks;
     }
