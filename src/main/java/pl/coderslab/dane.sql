@@ -10,3 +10,6 @@ INSERT INTO testdb.books_authors (book_id, author_id)
 VALUES (1, 1);
 INSERT INTO testdb.books_authors (book_id, author_id)
 VALUES (1, 2);
+INSERT INTO testdb.publishers(name) VALUES ("Wydawca1");
+INSERT INTO testdb.publishers(name) VALUES ("Wydawca2");
+INSERT INTO testdb.publishers(name) VALUES ("Wydawca3");

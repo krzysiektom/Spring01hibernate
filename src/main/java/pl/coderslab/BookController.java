@@ -2,6 +2,7 @@ package pl.coderslab;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -38,6 +39,20 @@ public class BookController {
         return "allbooks";
     }
 
+    @GetMapping("/addBook")
+    public String addBookForm(Model model) {
+        Book book = new Book();
+        model.addAttribute(book);
+        return "book";
+    }
+
+    @PostMapping("/addBook")
+    public String addBook(@ModelAttribute Book book) {
+//        Publisher publisher = publisherDao.getPublisherById(book.getPublisher().getId());
+//        book.setPublisher(publisher);
+        bookDao.saveBook(book);
+        return "redirect:/books/allBooks";
+    }
 
     @RequestMapping(path = "/hello", produces = "text/html; charset=UTF-8")
     @ResponseBody
