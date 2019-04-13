@@ -1,3 +1,7 @@
+CREATE DATABASE testdb
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
 INSERT INTO testdb.authors(firstName, lastName)
 VALUES ('Imie1', 'Nazwisko1');
 INSERT INTO testdb.authors(firstName, lastName)
@@ -13,3 +17,9 @@ VALUES (1, 2);
 INSERT INTO testdb.publishers(name) VALUES ("Wydawca1");
 INSERT INTO testdb.publishers(name) VALUES ("Wydawca2");
 INSERT INTO testdb.publishers(name) VALUES ("Wydawca3");
+INSERT INTO testdb.hobbies(name) VALUES ("szachy");
+INSERT INTO testdb.hobbies(name) VALUES ("piłka nożna");
+INSERT INTO testdb.hobbies(name) VALUES ("hokej");
+INSERT INTO testdb.programmingSkills(skill) VALUES ("Java");
+INSERT INTO testdb.programmingSkills(skill) VALUES ("PHP");
+INSERT INTO testdb.programmingSkills(skill) VALUES ("Ruby");

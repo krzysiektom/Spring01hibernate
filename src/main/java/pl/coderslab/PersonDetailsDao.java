@@ -1,10 +1,15 @@
 package pl.coderslab;
 
+import org.springframework.stereotype.Controller;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Controller
+@Transactional
 public class PersonDetailsDao {
     @PersistenceContext
     EntityManager entityManager;

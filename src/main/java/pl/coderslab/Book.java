@@ -18,7 +18,7 @@ public class Book {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private List<Author> authors = new ArrayList<>();
+    private List<Author> authors;
     @Column(scale = 2, precision = 4)
     private BigDecimal rating;
     @ManyToOne
