@@ -6,10 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/books")
@@ -33,7 +30,7 @@ public class BookController {
 
     @ModelAttribute("allBooks")
     public List<Book> getAllBooks() {
-        return bookDao.returnAllBooks();
+        return bookDao.getAll();
     }
 
     @ModelAttribute("allAuthors")
@@ -64,7 +61,7 @@ public class BookController {
 
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, Model model) {
-        model.addAttribute(bookDao.findById(id));
+        model.addAttribute(bookDao.get(id));
         return "book";
     }
 
@@ -88,7 +85,7 @@ public class BookController {
     @GetMapping(path = "/{id}")
     @ResponseBody
     Book bookById(@PathVariable Long id) {
-        return bookDao.findById(id);
+        return bookDao.get(id);
     }
 
     @GetMapping("/confirmDelete/{id}")
@@ -105,7 +102,7 @@ public class BookController {
 
     @GetMapping("/confirmDelete/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
-        bookDao.delete(bookDao.findById(id));
+        bookDao.delete(bookDao.get(id));
         return "redirect:/books/allBooks";
     }
 

@@ -38,9 +38,4 @@ public class ProgrammingSkillDao {
                 entity : entityManager.merge(entity));
     }
 
-    public ProgrammingSkill getByName(String name){
-        Query query = entityManager.createQuery("select p from ProgrammingSkill p where skill=:name");
-        query.setParameter("name",name);
-        return (ProgrammingSkill) query.getSingleResult();
-    }
 }

@@ -22,7 +22,7 @@ public class BookDao {
         entityManager.merge(entity);
     }
 
-    public Book findById(long id) {
+    public Book get(long id) {
         return entityManager.find(Book.class, id);
     }
 
@@ -31,16 +31,10 @@ public class BookDao {
                 entity : entityManager.merge(entity));
     }
 
-    public List<Book> returnAllBooks() {
+    public List<Book> getAll() {
         Query query = entityManager.createQuery("select p from Book p");
         List<Book> allBooks = query.getResultList();
         return allBooks;
     }
 
-    public List<Book> getRatingList(int rating) {
-        Query query = entityManager.createQuery("select p from Book p WHERE rating>:rating");
-        query.setParameter("rating",rating);
-        List<Book> allBooks = query.getResultList();
-        return allBooks;
-    }
 }
