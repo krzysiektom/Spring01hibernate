@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/persons")
@@ -34,14 +35,15 @@ public class PersonDetailsController {
     @PostMapping("/showForm")
     @ResponseBody
     public String addPersonDetails(@ModelAttribute PersonDetails personDetails) {
-        System.out.println(personDetails.getProgrammingSkills());
-        List<ProgrammingSkill> programmingSkills = new ArrayList<>();
-        for (ProgrammingSkill programmingSkill : personDetails.getProgrammingSkills()) {
-            programmingSkills.add(programmingSkillDao.getByName(programmingSkill.toString()));
-        }
+        List<ProgrammingSkill> programmingSkills;
+        programmingSkills = personDetails.getProgrammingSkills().stream()
+                .map(programmingSkill -> programmingSkillDao.get(Long.parseLong(programmingSkill.getSkill())))
+                .collect(Collectors.toList());
         personDetails.setProgrammingSkills(programmingSkills);
+
+        System.out.println(personDetails.getProgrammingSkills());
         System.out.println(personDetails.getHobbies());
-        //personDetailsDao.save(personDetails);
+        personDetailsDao.save(personDetails);
         return personDetails.toString();
     }
 

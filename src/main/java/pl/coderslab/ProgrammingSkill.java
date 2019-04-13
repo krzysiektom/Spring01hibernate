@@ -35,6 +35,9 @@ public class ProgrammingSkill {
 
     @Override
     public String toString() {
-        return skill;
+        return "ProgrammingSkill{" +
+                "id=" + id +
+                ", skill='" + skill + '\'' +
+                '}';
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import pl.coderslab.AuthorConverter;
 import pl.coderslab.PublisherConverter;
 
 import javax.persistence.EntityManagerFactory;
@@ -35,13 +36,17 @@ public class AppConfig implements WebMvcConfigurer {
     @Override //dodawanie konwertera
     public void addFormatters(FormatterRegistry formatterRegistry) {
         formatterRegistry.addConverter(getPublisherConverter());
+        formatterRegistry.addConverter(getAuthorConverter());
     }
 
     @Bean   //definiowanie ziarna konwertera
     public PublisherConverter getPublisherConverter() {
         return new PublisherConverter();
-    }
 
+    }@Bean   //definiowanie ziarna konwertera
+    public AuthorConverter getAuthorConverter() {
+        return new AuthorConverter();
+    }
 
     @Bean
     public ViewResolver internalResourceViewResolver() {
@@ -52,12 +57,13 @@ public class AppConfig implements WebMvcConfigurer {
         return bean;
     }
 
-    @Bean(name="localeResolver")
+    @Bean(name = "localeResolver")
     public LocaleContextResolver getLocaleContextResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(new Locale("pl","PL"));
+        localeResolver.setDefaultLocale(new Locale("pl", "PL"));
         return localeResolver;
     }
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();

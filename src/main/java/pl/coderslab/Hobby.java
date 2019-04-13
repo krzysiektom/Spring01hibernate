@@ -23,6 +23,9 @@ public class Hobby {
 
     @Override
     public String toString() {
-        return name;
+        return "Hobby{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

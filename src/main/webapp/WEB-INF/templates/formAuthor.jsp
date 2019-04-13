@@ -1,27 +1,23 @@
 <%--
   Created by IntelliJ IDEA.
   User: krzysztof
-  Date: 13.04.19
-  Time: 15:27
+  Date: 14.04.19
+  Time: 00:49
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-
 <html>
 <head>
-    <title>Book</title>
+    <title>formAuthor</title>
 </head>
 <body>
-<form:form method="post" modelAttribute="book">
+<form:form method="post" modelAttribute="author">
 
-    <form:input path="title"/><br>
-    <form:input path="description"/><br>
-    <form:select path="publisher" items="${allPublishers}" itemLabel="name" itemValue="id"/><br>
-    <form:select path="authors" items="${allAuthors}" itemLabel="firstName"
-                 itemValue="id" multiple="true"/><br>
+    firstName: <form:input path="firstName"/><br>
+    lastName: <form:input path="lastName"/><br>
     <input type="submit" value="Save"/>
 </form:form>
 </body>

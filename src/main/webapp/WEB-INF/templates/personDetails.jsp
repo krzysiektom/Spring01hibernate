@@ -28,8 +28,8 @@
 </form:select><br>
     <form:textarea path="notes" rows="3" cols="20"/><br>
     mailingList: <form:checkbox path="mailingList"/><br>
-    <form:select path="programmingSkills" items="${programmingSkills}" multiple="true"/><br>
-    Hobby: <form:checkboxes path="hobbies" items="${hobbies}"/><br>
+    <form:select path="programmingSkills" items="${programmingSkills}" itemLabel="skill" itemValue="id" multiple="true"/><br>
+    Hobby: <form:checkboxes path="hobbies" items="${hobbies}" /><br>
     <input type="submit" value="Save">
 </form:form>
 

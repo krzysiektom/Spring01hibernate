@@ -16,13 +16,15 @@ import java.util.Set;
 public class BookController {
     private final BookDao bookDao;
     private final PublisherDao publisherDao;
-
+    private final AuthorDao authorDao;
 
     @Autowired
-    public BookController(BookDao bookDao, PublisherDao publisherDao) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao) {
         this.bookDao = bookDao;
         this.publisherDao = publisherDao;
+        this.authorDao = authorDao;
     }
+
 
     @ModelAttribute("allPublishers")
     public List<Publisher> getAllPublisher() {
@@ -32,6 +34,11 @@ public class BookController {
     @ModelAttribute("allBooks")
     public List<Book> getAllBooks() {
         return bookDao.returnAllBooks();
+    }
+
+    @ModelAttribute("allAuthors")
+    public List<Author> getAllAuthors() {
+        return authorDao.getAll();
     }
 
     @GetMapping("/allBooks")
@@ -50,18 +57,19 @@ public class BookController {
     public String addBook(@ModelAttribute Book book) {
 //        Publisher publisher = publisherDao.getPublisherById(book.getPublisher().getId());
 //        book.setPublisher(publisher);
-        bookDao.save(book);
+        System.out.println(book);
+        //bookDao.save(book);
         return "redirect:/books/allBooks";
     }
 
     @GetMapping("/edit/{id}")
-    public String editBook(@PathVariable Long id, Model model){
+    public String editBook(@PathVariable Long id, Model model) {
         model.addAttribute(bookDao.findById(id));
         return "book";
     }
 
     @PostMapping("/edit/{id}")
-    public String modifyBook(@PathVariable Long id, @ModelAttribute Book book){
+    public String modifyBook(@PathVariable Long id, @ModelAttribute Book book) {
         bookDao.update(book);
         return "redirect:/books/allBooks";
 
@@ -84,13 +92,13 @@ public class BookController {
     }
 
     @GetMapping("/confirmDelete/{id}")
-    public String  confirmDeleteBook(@PathVariable Long id, Model model) {
-        model.addAttribute("id",id);
+    public String confirmDeleteBook(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
         return "confirmDelete";
     }
 
     @GetMapping("/confirmDelete/cancel")
-    public String  cancelDeleteBook() {
+    public String cancelDeleteBook() {
         return "redirect:/books/allBooks";
 
     }
