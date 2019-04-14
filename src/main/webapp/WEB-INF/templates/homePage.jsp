@@ -20,6 +20,7 @@
 <a href="/validateBook">validate Book</a><br>
 <a href="/validateAuthor">validate Author</a><br>
 <a href="/validatePublisher">validate Publisher</a><br>
+<a href="/validateBookForm">validate Book Form</a><br>
 
 </body>
 </html>

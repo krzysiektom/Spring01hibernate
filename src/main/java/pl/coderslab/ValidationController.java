@@ -3,12 +3,16 @@ package pl.coderslab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.Validator;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,11 +26,27 @@ import java.util.stream.Collectors;
 @Transactional
 public class ValidationController {
 
-    Validator validator;
+    private Validator validator;
+    private PublisherDao publisherDao;
+    private AuthorDao authorDao;
+    private BookDao bookDao;
 
     @Autowired
-    public ValidationController(Validator validator) {
+    public ValidationController(Validator validator, PublisherDao publisherDao, AuthorDao authorDao, BookDao bookDao) {
         this.validator = validator;
+        this.publisherDao = publisherDao;
+        this.authorDao = authorDao;
+        this.bookDao = bookDao;
+    }
+
+    @ModelAttribute("allPublishers")
+    public List<Publisher> getAllPublisher() {
+        return publisherDao.getAll();
+    }
+
+    @ModelAttribute("allAuthors")
+    public List<Author> getAllAuthors() {
+        return authorDao.getAll();
     }
 
     @GetMapping("/validateBook")
@@ -77,7 +97,7 @@ public class ValidationController {
         publisher.setNIP("asda");
         publisher.setREGON("656");
         Set<ConstraintViolation<Publisher>> violations = validator.validate(publisher);
-       // Map<String,String> errorMap = violations.stream().collect(Collectors.toMap(cv->cv.getPropertyPath(),cv->cv.getMessage()));
+        // Map<String,String> errorMap = violations.stream().collect(Collectors.toMap(cv->cv.getPropertyPath(),cv->cv.getMessage()));
 
         List<String> strings = new ArrayList<>(); //zamienieć na parę klucz wartość
         for (ConstraintViolation<Publisher> constraintViolation : violations) {
@@ -92,4 +112,22 @@ public class ValidationController {
         }
         return "validatePublisher";
     }
+
+    @GetMapping("/validateBookForm")
+    public String validateFormShow(Model model) {
+        Book book = new Book();
+        model.addAttribute("book", book);
+        return "book";
+    }
+
+    @PostMapping("/validateBookForm")
+    public String validateForm(@ModelAttribute("book") @Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "book";
+        }
+        bookDao.save(book);
+        return "redirect:/books/allBooks";
+    }
+
 }
+

@@ -14,13 +14,14 @@ public class Book {
     private Long id;
 
     @NotNull
+    @StartWith("A")
     @Size(min = 5)
     @Column(name = "myTitle",
             length = 100,
             nullable = false)
     private String title;
 
-    @NotNull
+    //@NotNull
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))

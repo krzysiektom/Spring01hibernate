@@ -17,9 +17,16 @@
 <body>
 <form:form method="post" modelAttribute="book">
 
+    <form:errors path="title"/><br>
     <form:input path="title"/><br>
+    <form:errors path="description"/><br>
     <form:input path="description"/><br>
+    <form:errors path="pages"/><br>
+    <form:input path="pages"/><br>
+    <form:errors path="publisher" items="${allPublishers}" itemLabel="name" itemValue="id"/><br>
     <form:select path="publisher" items="${allPublishers}" itemLabel="name" itemValue="id"/><br>
+    <form:errors path="authors" items="${allAuthors}" itemLabel="firstName"
+                 itemValue="id" multiple="true"/><br>
     <form:select path="authors" items="${allAuthors}" itemLabel="firstName"
                  itemValue="id" multiple="true"/><br>
     <input type="submit" value="Save"/>
