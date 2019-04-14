@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,26 +38,31 @@ public class AuthorController {
     }
 
     @PostMapping("/addAuthor")
-    public String addAuthor(@ModelAttribute Author author) {
+    public String addAuthor(@ModelAttribute("author") @Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            return "formAuthor";
+        }
+
+        System.out.println(author.toString());
         authorDao.save(author);
         return "redirect:/authors/allAuthors";
     }
 
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable Long id, Model model){
+    public String editForm(@PathVariable Long id, Model model) {
         model.addAttribute(authorDao.get(id));
         return "formAuthor";
     }
 
     @PostMapping("/edit/{id}")
-    public String modifyAuthor(@PathVariable Long id, @ModelAttribute Author author){
+    public String modifyAuthor(@PathVariable Long id, @ModelAttribute Author author) {
         authorDao.update(author);
         return "redirect:/authors/allAuthors";
 
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAuthor(@PathVariable Long id){
+    public String deleteAuthor(@PathVariable Long id) {
         authorDao.delete(authorDao.get(id));
         return "redirect:/authors/allAuthors";
     }

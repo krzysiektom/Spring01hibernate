@@ -15,6 +15,7 @@
 </head>
 <body>
 <form:form method="post" modelAttribute="publisher">
+    <form:errors path="name"/><br>
     firstName: <form:input path="name"/><br>
     <input type="submit" value="Save"/>
 </form:form>

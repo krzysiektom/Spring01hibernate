@@ -16,8 +16,14 @@
 <body>
 <form:form method="post" modelAttribute="author">
 
+    <form:errors path="firstName"/><br>
     firstName: <form:input path="firstName"/><br>
+    <form:errors path="lastName"/><br>
     lastName: <form:input path="lastName"/><br>
+    <form:errors path="PESEL"/><br>
+    PESEL: <form:input path="PESEL"/><br>
+    <form:errors path="email"/><br>
+    email: <form:input path="email"/><br>
     <input type="submit" value="Save"/>
 </form:form>
 </body>

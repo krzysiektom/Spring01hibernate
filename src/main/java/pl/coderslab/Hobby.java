@@ -13,19 +13,19 @@ public class Hobby {
     public Hobby() {
     }
 
-    public String getHobby() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setHobby(String name) {
+    public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Hobby{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

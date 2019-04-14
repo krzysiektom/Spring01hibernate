@@ -3,8 +3,10 @@ package pl.coderslab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -35,8 +37,17 @@ public class PublisherController {
         return "formPublisher";
     }
 
-    @PostMapping("/addPublisher")
+    /*@PostMapping("/addPublisher") //stara wersja bez walidatora formularza
     public String addAuthor(@ModelAttribute Publisher publisher) {
+        publisherDao.save(publisher);
+        return "redirect:/publishers/allPublishers";
+    }*/
+
+    @PostMapping("/addPublisher")
+    public String addPublisher(@ModelAttribute("publisher") @Valid Publisher publisher, BindingResult result) {
+        if (result.hasErrors()) {
+            return "formPublisher";
+        }
         publisherDao.save(publisher);
         return "redirect:/publishers/allPublishers";
     }
@@ -48,13 +59,16 @@ public class PublisherController {
     }
 
     @PostMapping("/edit/{id}")
-    public String modifyAuthor(@PathVariable Long id, @ModelAttribute Publisher publisher) {
+    public String modifyPublisher(@ModelAttribute("publisher") @Valid Publisher publisher, BindingResult result) {
+        if (result.hasErrors()) {
+            return "formPublisher";
+        }
         publisherDao.update(publisher);
         return "redirect:/publishers/allPublishers";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAuthor(@PathVariable Long id) {
+    public String deletePublisherk(@PathVariable Long id) {
         publisherDao.delete(publisherDao.get(id));
         return "redirect:/publishers/allPublishers";
 

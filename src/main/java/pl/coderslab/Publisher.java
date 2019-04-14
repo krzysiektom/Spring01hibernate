@@ -1,5 +1,6 @@
 package pl.coderslab;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.pl.NIP;
 import org.hibernate.validator.constraints.pl.REGON;
 
@@ -14,6 +15,7 @@ public class Publisher {
     Long id;
 
     @NotNull
+    @NotEmpty
     String name;
 
     @NIP
@@ -59,5 +61,15 @@ public class Publisher {
 
     public void setREGON(String REGON) {
         this.REGON = REGON;
+    }
+
+    @Override
+    public String toString() {
+        return "Publisher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", NIP='" + NIP + '\'' +
+                ", REGON='" + REGON + '\'' +
+                '}';
     }
 }
