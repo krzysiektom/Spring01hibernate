@@ -55,7 +55,10 @@ public class AuthorController {
     }
 
     @PostMapping("/edit/{id}")
-    public String modifyAuthor(@PathVariable Long id, @ModelAttribute Author author) {
+    public String modifyAuthor(@ModelAttribute("author") @Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            return "formAuthor";
+        }
         authorDao.update(author);
         return "redirect:/authors/allAuthors";
 

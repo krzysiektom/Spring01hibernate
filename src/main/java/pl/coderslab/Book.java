@@ -14,7 +14,7 @@ public class Book {
     private Long id;
 
     @NotNull
-    @StartWith("A")
+    //@StartWith("A")
     @Size(min = 5)
     @Column(name = "myTitle",
             length = 100,

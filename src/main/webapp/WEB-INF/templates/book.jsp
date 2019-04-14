@@ -25,9 +25,9 @@
     <form:input path="pages"/><br>
     <form:errors path="publisher" items="${allPublishers}" itemLabel="name" itemValue="id"/><br>
     <form:select path="publisher" items="${allPublishers}" itemLabel="name" itemValue="id"/><br>
-    <form:errors path="authors" items="${allAuthors}" itemLabel="firstName"
+    <form:errors path="authors" items="${allAuthors}" itemLabel="fullName"
                  itemValue="id" multiple="true"/><br>
-    <form:select path="authors" items="${allAuthors}" itemLabel="firstName"
+    <form:select path="authors" items="${allAuthors}" itemLabel="fullName"
                  itemValue="id" multiple="true"/><br>
     <input type="submit" value="Save"/>
 </form:form>

@@ -14,16 +14,17 @@ public class Author {
     Long id;
 
     @NotNull
-    String firstName;
+    private String firstName;
 
     @NotNull
-    String lastName;
+    private String lastName;
 
+    private String fullName;
     @PESEL
-    String PESEL;
+    private String PESEL;
 
     @Email
-    String email;
+    private String email;
 
     public Author() {
     }
@@ -47,6 +48,7 @@ public class Author {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        this.fullName = this.firstName+" "+this.lastName;
     }
 
     public String getLastName() {
@@ -55,6 +57,7 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        this.fullName = this.firstName+" "+this.lastName;
     }
 
     public String getPESEL() {
@@ -71,6 +74,10 @@ public class Author {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     @Override

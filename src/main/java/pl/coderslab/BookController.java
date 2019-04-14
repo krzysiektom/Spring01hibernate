@@ -54,8 +54,8 @@ public class BookController {
     public String addBook(@ModelAttribute Book book) {
 //        Publisher publisher = publisherDao.getPublisherById(book.getPublisher().getId());
 //        book.setPublisher(publisher);
-        System.out.println(book);
-        //bookDao.save(book);
+        //System.out.println(book);
+        bookDao.save(book);
         return "redirect:/books/allBooks";
     }
 
