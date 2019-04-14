@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: krzysztof
   Date: 14.04.19
-  Time: 01:29
+  Time: 12:05
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,15 +11,12 @@
 
 <html>
 <head>
-    <title>homePage</title>
+    <title>Title</title>
 </head>
 <body>
-<a href="/authors/allAuthors">All Authors</a><br>
-<a href="/publishers/allPublishers">All Publishers</a><br>
-<a href="/books/allBooks">All Books</a><br>
-<a href="/validateBook">validate Book</a><br>
-<a href="/validateAuthor">validate Author</a><br>
-<a href="/validatePublisher">validate Publisher</a><br>
-
+<p>Nazwa pola : nazwa błędu</p>
+<c:forEach items="${violations}" var="violation">
+    <p>${violation}</p>
+</c:forEach>
 </body>
 </html>

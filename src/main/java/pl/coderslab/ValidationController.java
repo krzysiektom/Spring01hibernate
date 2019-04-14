@@ -13,7 +13,10 @@ import javax.validation.Validator;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Controller
 @Transactional
@@ -66,5 +69,27 @@ public class ValidationController {
             }
         }
         return "validateAuthor";
+    }
+
+    @GetMapping("/validatePublisher")
+    public String validatePublisher(Model model) {
+        Publisher publisher = new Publisher();
+        publisher.setNIP("asda");
+        publisher.setREGON("656");
+        Set<ConstraintViolation<Publisher>> violations = validator.validate(publisher);
+       // Map<String,String> errorMap = violations.stream().collect(Collectors.toMap(cv->cv.getPropertyPath(),cv->cv.getMessage()));
+
+        List<String> strings = new ArrayList<>(); //zamienieć na parę klucz wartość
+        for (ConstraintViolation<Publisher> constraintViolation : violations) {
+            strings.add(constraintViolation.getPropertyPath() + " : " + constraintViolation.getMessage());
+        }
+        model.addAttribute("violations", strings);
+        if (!violations.isEmpty()) { //sprawdzenie czy wystąpiły błędy
+            for (ConstraintViolation<Publisher> constraintViolation : violations) {
+                System.out.println(constraintViolation.getPropertyPath() + " "
+                        + constraintViolation.getMessage());
+            }
+        }
+        return "validatePublisher";
     }
 }
