@@ -26,7 +26,7 @@ public class ValidationController {
         this.validator = validator;
     }
 
-    @GetMapping("/testOfValidator")
+    @GetMapping("/validateBook")
     public String validateBook(Model model) {
         Book book = new Book();
         book.setTitle("Ale");
@@ -45,5 +45,26 @@ public class ValidationController {
             }
         }
         return "validateBook";
+    }
+
+    @GetMapping("/validateAuthor")
+    public String validateAuthor(Model model) {
+        Author author = new Author();
+        author.setEmail("sdasda");
+        author.setFirstName("sdas");
+        author.setPESEL("123");
+        Set<ConstraintViolation<Author>> violations = validator.validate(author);
+        List<String> strings = new ArrayList<>(); //zamienieć na parę klucz wartość
+        for (ConstraintViolation<Author> constraintViolation : violations) {
+            strings.add(constraintViolation.getPropertyPath() + " : " + constraintViolation.getMessage());
+        }
+        model.addAttribute("violations", strings);
+        if (!violations.isEmpty()) { //sprawdzenie czy wystąpiły błędy
+            for (ConstraintViolation<Author> constraintViolation : violations) {
+                System.out.println(constraintViolation.getPropertyPath() + " "
+                        + constraintViolation.getMessage());
+            }
+        }
+        return "validateAuthor";
     }
 }
