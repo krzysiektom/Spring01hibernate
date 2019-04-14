@@ -12,6 +12,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -24,6 +25,7 @@ import pl.coderslab.PublisherConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import javax.validation.Validator;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -62,6 +64,11 @@ public class AppConfig implements WebMvcConfigurer {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
         localeResolver.setDefaultLocale(new Locale("pl", "PL"));
         return localeResolver;
+    }
+
+    @Bean   //definiowanie ziarna obiektu Validator
+    public Validator validator() {
+        return new LocalValidatorFactoryBean();
     }
 
     @Bean
