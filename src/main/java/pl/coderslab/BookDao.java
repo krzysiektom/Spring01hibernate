@@ -25,7 +25,10 @@ public class BookDao {
 
     public Book get(long id) {
         Book book = entityManager.find(Book.class, id);
-        Hibernate.initialize(book.getAuthors());
+        if (null != book) {
+            Hibernate.initialize(book.getAuthors());
+            Hibernate.initialize(book.getPublisher());
+        }
         return book;
     }
 
@@ -35,9 +38,8 @@ public class BookDao {
     }
 
     public List<Book> getAll() {
-        Query query = entityManager.createQuery("select p from Book p");
-        List<Book> allBooks = query.getResultList();
-        return allBooks;
+        Query query = entityManager.createQuery("select p from Book p where not proposition= true");
+        return query.getResultList();
     }
 
 }

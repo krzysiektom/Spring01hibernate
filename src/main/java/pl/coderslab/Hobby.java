@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Hobby {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     private String name;
 
     public Hobby() {

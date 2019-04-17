@@ -42,8 +42,6 @@ public class AuthorController {
         if (result.hasErrors()) {
             return "formAuthor";
         }
-
-        System.out.println(author.toString());
         authorDao.save(author);
         return "redirect:/authors/allAuthors";
     }

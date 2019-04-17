@@ -2,8 +2,8 @@ package pl.coderslab;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,15 +13,15 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     //@StartWith("A")
     @Size(min = 5)
     @Column(name = "myTitle",
             length = 100,
             nullable = false)
+    @NotNull(groups = {ValidationProposition.class, Default.class})
     private String title;
 
-    //@NotNull
+    @NotNull
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
@@ -33,16 +33,19 @@ public class Book {
     private BigDecimal rating;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
 
     @Size(max = 600)
     @Column(columnDefinition = "TEXT")
+    @NotNull(groups = ValidationProposition.class)
     private String description;
 
     @NotNull
     @Min(1)
     private Integer pages;
+
+    private boolean proposition;
 
     public Book() {
     }
@@ -109,6 +112,14 @@ public class Book {
         this.pages = pages;
     }
 
+    public boolean isProposition() {
+        return proposition;
+    }
+
+    public void setProposition(boolean proposition) {
+        this.proposition = proposition;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -119,6 +130,7 @@ public class Book {
                 ", publisher=" + publisher +
                 ", description='" + description + '\'' +
                 ", pages=" + pages +
+                ", proposition=" + proposition +
                 '}';
     }
 }

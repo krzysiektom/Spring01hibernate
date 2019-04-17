@@ -17,6 +17,7 @@
 <a href="/authors/allAuthors">All Authors</a><br>
 <a href="/publishers/allPublishers">All Publishers</a><br>
 <a href="/books/allBooks">All Books</a><br>
+<a href="/proposition/all">All Proposition</a><br>
 <a href="/persons/showForm">show Form</a><br>
 <a href="/validateBook">validate Book</a><br>
 <a href="/validateAuthor">validate Author</a><br>

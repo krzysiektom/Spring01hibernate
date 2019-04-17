@@ -3,8 +3,12 @@ package pl.coderslab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -50,9 +54,10 @@ public class BookController {
     }
 
     @PostMapping("/addBook")
-    public String addBook(@ModelAttribute Book book) {
-//        Publisher publisher = publisherDao.getPublisherById(book.getPublisher().getId());
-//        book.setPublisher(publisher);
+    public String addBook(@Validated({Default.class}) @ModelAttribute("book") @Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "book";
+        }
         bookDao.save(book);
         return "redirect:/books/allBooks";
     }
@@ -64,10 +69,12 @@ public class BookController {
     }
 
     @PostMapping("/edit/{id}")
-    public String modifyBook(@PathVariable Long id, @ModelAttribute Book book) {
+    public String modifyBook(@Validated({Default.class}) @ModelAttribute("book") @Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "book";
+        }
         bookDao.update(book);
         return "redirect:/books/allBooks";
-
     }
 
     @RequestMapping(path = "/hello", produces = "text/html; charset=UTF-8")

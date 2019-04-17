@@ -12,17 +12,17 @@ import javax.validation.constraints.NotNull;
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @NotNull
     @NotEmpty
-    String name;
+    private String name;
 
     @NIP
-    String NIP;
+    private String NIP;
 
     @REGON
-    String REGON;
+    private String REGON;
 
     public Publisher() {
     }
