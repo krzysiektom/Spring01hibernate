@@ -1,5 +1,6 @@
 package pl.coderslab;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -23,7 +24,9 @@ public class BookDao {
     }
 
     public Book get(long id) {
-        return entityManager.find(Book.class, id);
+        Book book = entityManager.find(Book.class, id);
+        Hibernate.initialize(book.getAuthors());
+        return book;
     }
 
     public void delete(Book entity) {

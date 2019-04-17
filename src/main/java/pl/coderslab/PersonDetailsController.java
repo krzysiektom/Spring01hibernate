@@ -35,12 +35,13 @@ public class PersonDetailsController {
     @PostMapping("/showForm")
     @ResponseBody
     public String addPersonDetails(@ModelAttribute PersonDetails personDetails) {
+        System.out.println(personDetails.getProgrammingSkills());
+        System.out.println(personDetails.getHobbies());
         List<ProgrammingSkill> programmingSkills;
         programmingSkills = personDetails.getProgrammingSkills().stream()
                 .map(programmingSkill -> programmingSkillDao.get(Long.parseLong(programmingSkill.getSkill())))
                 .collect(Collectors.toList());
         personDetails.setProgrammingSkills(programmingSkills);
-
         System.out.println(personDetails.getProgrammingSkills());
         System.out.println(personDetails.getHobbies());
         personDetailsDao.save(personDetails);

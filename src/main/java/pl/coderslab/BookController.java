@@ -22,7 +22,6 @@ public class BookController {
         this.authorDao = authorDao;
     }
 
-
     @ModelAttribute("allPublishers")
     public List<Publisher> getAllPublisher() {
         return publisherDao.getAll();
@@ -54,7 +53,6 @@ public class BookController {
     public String addBook(@ModelAttribute Book book) {
 //        Publisher publisher = publisherDao.getPublisherById(book.getPublisher().getId());
 //        book.setPublisher(publisher);
-        //System.out.println(book);
         bookDao.save(book);
         return "redirect:/books/allBooks";
     }
@@ -84,7 +82,7 @@ public class BookController {
 
     @GetMapping(path = "/{id}")
     @ResponseBody
-    Book bookById(@PathVariable Long id) {
+    public Book bookById(@PathVariable Long id) {
         return bookDao.get(id);
     }
 

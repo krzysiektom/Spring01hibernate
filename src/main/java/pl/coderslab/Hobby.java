@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Hobby {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
     private String name;
 
     public Hobby() {
@@ -27,5 +27,13 @@ public class Hobby {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Hobby{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import pl.coderslab.AuthorConverter;
+import pl.coderslab.HobbyConverter;
 import pl.coderslab.PublisherConverter;
 
 import javax.persistence.EntityManagerFactory;
@@ -39,15 +40,23 @@ public class AppConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry formatterRegistry) {
         formatterRegistry.addConverter(getPublisherConverter());
         formatterRegistry.addConverter(getAuthorConverter());
+        formatterRegistry.addConverter(getHobbyConverter());
     }
 
     @Bean   //definiowanie ziarna konwertera
     public PublisherConverter getPublisherConverter() {
         return new PublisherConverter();
+    }
 
-    }@Bean   //definiowanie ziarna konwertera
+    @Bean   //definiowanie ziarna konwertera
     public AuthorConverter getAuthorConverter() {
         return new AuthorConverter();
+    }
+
+
+    @Bean   //definiowanie ziarna konwertera
+    public HobbyConverter getHobbyConverter() {
+        return new HobbyConverter();
     }
 
     @Bean
