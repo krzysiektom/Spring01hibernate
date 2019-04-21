@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Controller
-@RequestMapping("/proposition")
+@RequestMapping("/propositions")
 public class PropositionController {
 
     @PersistenceContext
@@ -35,19 +35,18 @@ public class PropositionController {
     @GetMapping("/add")
     public String showForm(Model model) {
         Book book = new Book();
-        book.setProposition(true);
         model.addAttribute(book);
         return "formProposition";
     }
 
     @PostMapping("/add")
-    public String add(@Validated({ValidationProposition.class}) Book book, BindingResult result) {
+    public String add(@Validated({ValidationProposition.class}) @ModelAttribute("book") Book book, BindingResult result) {
         if (result.hasErrors()) {
             return "formProposition";
         }
         book.setProposition(true);
         bookDao.save(book);
-        return "redirect:/proposition/all";
+        return "redirect:/propositions/all";
     }
 
     @GetMapping("/edit/{id}")
@@ -57,20 +56,20 @@ public class PropositionController {
     }
 
     @PostMapping("/edit/{id}")
-    public String modify(@Validated({ValidationProposition.class}) Book book, BindingResult result) {
+    public String modify(@Validated({ValidationProposition.class}) @ModelAttribute("book") Book book, BindingResult result) {
         if (result.hasErrors()) {
             return "formProposition";
         }
-        book.setProposition(true);
         bookDao.update(book);
-        return "redirect:/proposition/all";
+        return "redirect:/propositions/all";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
         bookDao.delete(bookDao.get(id));
-        return "redirect:/proposition/all";
+        return "redirect:/propositions/all";
     }
+
     @GetMapping("/{id}")
     @ResponseBody
     public Book show(@PathVariable Long id) {

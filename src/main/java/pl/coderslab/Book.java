@@ -1,8 +1,9 @@
 package pl.coderslab;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,35 +15,34 @@ public class Book {
     private Long id;
 
     //@StartWith("A")
-    @Size(min = 5)
+    @Size(groups = ValidationBook.class, min = 5)
+    @NotEmpty(groups = {ValidationBook.class, ValidationProposition.class})
     @Column(name = "myTitle",
-            length = 100,
-            nullable = false)
-    @NotNull(groups = {ValidationProposition.class, Default.class})
+            length = 100)
     private String title;
 
-    @NotNull
+    @NotNull(groups = ValidationBook.class)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors;
 
-    @DecimalMin(value = "1")
-    @DecimalMax(value = "10")
+    @DecimalMin(groups = ValidationBook.class, value = "1")
+    @DecimalMax(groups = ValidationBook.class, value = "10")
     @Column(scale = 2, precision = 4)
     private BigDecimal rating;
 
-    @NotNull
+    @NotNull(groups = ValidationBook.class)
     @ManyToOne(fetch = FetchType.LAZY)
     private Publisher publisher;
 
-    @Size(max = 600)
+    @Size(groups = ValidationBook.class, max = 600)
     @Column(columnDefinition = "TEXT")
-    @NotNull(groups = ValidationProposition.class)
+    @NotEmpty(groups = ValidationProposition.class)
     private String description;
 
-    @NotNull
-    @Min(1)
+    @NotNull(groups = ValidationBook.class)
+    @Min(groups = ValidationBook.class, value = 1)
     private Integer pages;
 
     private boolean proposition;

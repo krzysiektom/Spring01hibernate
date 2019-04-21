@@ -54,7 +54,7 @@ public class BookController {
     }
 
     @PostMapping("/addBook")
-    public String addBook(@Validated({Default.class}) @ModelAttribute("book") @Valid Book book, BindingResult result) {
+    public String addBook(@Validated({ValidationBook.class}) @ModelAttribute("book") Book book, BindingResult result) {
         if (result.hasErrors()) {
             return "book";
         }
@@ -69,7 +69,7 @@ public class BookController {
     }
 
     @PostMapping("/edit/{id}")
-    public String modifyBook(@Validated({Default.class}) @ModelAttribute("book") @Valid Book book, BindingResult result) {
+    public String modifyBook(@Validated({ValidationBook.class}) @ModelAttribute("book") Book book, BindingResult result) {
         if (result.hasErrors()) {
             return "book";
         }

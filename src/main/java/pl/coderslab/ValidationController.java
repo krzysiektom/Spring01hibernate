@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,10 +48,9 @@ public class ValidationController {
     @GetMapping("/validateBook")
     public String validateBook(Model model) {
         Book book = new Book();
-        book.setTitle("Ale");
         book.setRating(new BigDecimal(30));
         book.setPublisher(new Publisher());
-        Set<ConstraintViolation<Book>> violations = validator.validate(book);
+        Set<ConstraintViolation<Book>> violations = validator.validate(book, ValidationBook.class);
         List<String> strings = new ArrayList<>(); //zamienieć na parę klucz wartość
         for (ConstraintViolation<Book> constraintViolation : violations) {
             strings.add(constraintViolation.getPropertyPath() + " : " + constraintViolation.getMessage());

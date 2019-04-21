@@ -14,9 +14,9 @@
     <title>allProposition</title>
 </head>
 <body>
-<a href="/proposition/add">Add Proposition</a><br>
+<a href="/propositions/add">Add Proposition</a><br>
 <c:forEach items="${allBooks}" var="book">
-    ${book.title} <a href="edit/${book.id}">Edit</a> <a href="confirmDelete/${book.id}">Delete</a> <br>
+    ${book.title} <a href="edit/${book.id}">Edit</a> <a href="delete/${book.id}">Delete</a> <br>
 </c:forEach>
 </body>
 </html>
