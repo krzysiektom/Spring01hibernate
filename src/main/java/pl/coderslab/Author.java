@@ -25,7 +25,7 @@ public class Author {
     private String fullName;
 
     @PESEL
-    private String PESEL;
+    private String pesel;
 
     @Email
     private String email;
@@ -65,11 +65,11 @@ public class Author {
     }
 
     public String getPESEL() {
-        return PESEL;
+        return pesel;
     }
 
     public void setPESEL(String PESEL) {
-        this.PESEL = PESEL;
+        this.pesel = PESEL;
     }
 
     public String getEmail() {
@@ -90,7 +90,7 @@ public class Author {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", PESEL='" + PESEL + '\'' +
+                ", PESEL='" + pesel + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

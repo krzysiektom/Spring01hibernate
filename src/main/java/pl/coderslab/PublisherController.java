@@ -12,13 +12,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/publishers")
 public class PublisherController {
-
-    private final PublisherDao publisherDao;
-
     @Autowired
-    public PublisherController(PublisherDao publisherDao) {
+    PublisherDao publisherDao;
+    @Autowired
+    PublisherRepository publisherRepository;
+
+    /*@Autowired
+    public PublisherController(PublisherDao publisherDao, PublisherRepository publisherRepository) {
         this.publisherDao = publisherDao;
-    }
+        this.publisherRepository = publisherRepository;
+    }*/
 
     @ModelAttribute("allPublishers")
     public List<Publisher> getAllPublishers() {
@@ -97,6 +100,14 @@ public class PublisherController {
     @ResponseBody
     void updatePublisher(@PathVariable String name) {
         publisherDao.update(new Publisher(name));
+    }
+
+    @GetMapping(path = "/show/{id}")
+    @ResponseBody
+    public String showPublisher(@PathVariable String id) {
+        Publisher publisher = publisherRepository.findOne(Long.parseLong(id));
+        return publisher.getName() + " " + publisher.getId();
+
     }
 
 }

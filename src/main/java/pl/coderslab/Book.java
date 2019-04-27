@@ -47,6 +47,9 @@ public class Book {
 
     private boolean proposition;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category category;
+
     public Book() {
     }
 
@@ -120,6 +123,14 @@ public class Book {
         this.proposition = proposition;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -131,6 +142,7 @@ public class Book {
                 ", description='" + description + '\'' +
                 ", pages=" + pages +
                 ", proposition=" + proposition +
+                ", category=" + category +
                 '}';
     }
 }

@@ -19,10 +19,10 @@ public class Publisher {
     private String name;
 
     @NIP
-    private String NIP;
+    private String nip;
 
     @REGON
-    private String REGON;
+    private String regon;
 
     public Publisher() {
     }
@@ -48,19 +48,19 @@ public class Publisher {
     }
 
     public String getNIP() {
-        return NIP;
+        return nip;
     }
 
     public void setNIP(String NIP) {
-        this.NIP = NIP;
+        this.nip = NIP;
     }
 
     public String getREGON() {
-        return REGON;
+        return regon;
     }
 
     public void setREGON(String REGON) {
-        this.REGON = REGON;
+        this.regon = REGON;
     }
 
     @Override
@@ -68,8 +68,8 @@ public class Publisher {
         return "Publisher{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", NIP='" + NIP + '\'' +
-                ", REGON='" + REGON + '\'' +
+                ", NIP='" + nip + '\'' +
+                ", REGON='" + regon + '\'' +
                 '}';
     }
 }
