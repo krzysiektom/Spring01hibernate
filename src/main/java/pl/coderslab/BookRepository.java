@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Long>, BookRepoCustom {
     List<Book> findByTitle(String title);
 
     List<Book> findByCategory(Category category);
