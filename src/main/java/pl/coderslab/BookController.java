@@ -7,8 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,12 +16,17 @@ public class BookController {
     private final BookDao bookDao;
     private final PublisherDao publisherDao;
     private final AuthorDao authorDao;
+    private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
+
 
     @Autowired
-    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao, BookRepository bookRepository, CategoryRepository categoryRepository) {
         this.bookDao = bookDao;
         this.publisherDao = publisherDao;
         this.authorDao = authorDao;
+        this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @ModelAttribute("allPublishers")
@@ -127,5 +130,25 @@ public class BookController {
             @PathVariable BigDecimal rating,
             @PathVariable String description) {
         bookDao.update(new Book(title, rating, description));
+    }
+
+    @GetMapping("byTitle/{title}")
+    @ResponseBody
+    public List<Book> findBooksByTitle(@PathVariable String title) {
+        return bookRepository.findByTitle(title);
+    }
+
+    @GetMapping("byCategoryName/{category}")
+    @ResponseBody
+    public List<Book> findBooksByCategory(@PathVariable String category) {
+        Category temp = categoryRepository.findByName(category.replaceAll("%20", " "));
+        return bookRepository.findByCategory(temp);
+    }
+
+    @GetMapping("byCategoryId/{id}")
+    @ResponseBody
+    public List<Book> findBooksById(@PathVariable String id) {
+        Category category=categoryRepository.findOne(Long.parseLong(id));
+        return bookRepository.findByCategory(category);
     }
 }

@@ -22,7 +22,7 @@ public class Book {
     private String title;
 
     @NotNull(groups = ValidationBook.class)
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "books_authors", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private List<Author> authors;
@@ -33,7 +33,7 @@ public class Book {
     private BigDecimal rating;
 
     @NotNull(groups = ValidationBook.class)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Publisher publisher;
 
     @Size(groups = ValidationBook.class, max = 600)
