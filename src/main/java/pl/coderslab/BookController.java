@@ -139,7 +139,7 @@ public class BookController {
     @GetMapping("byTitle/{title}")
     @ResponseBody
     public List<Book> findBooksByTitle(@PathVariable String title) {
-        return bookRepository.findByTitle(title);
+        return bookRepository.findByTitleQuery(title);
     }
 
     @GetMapping("byCategoryName/{category}")
