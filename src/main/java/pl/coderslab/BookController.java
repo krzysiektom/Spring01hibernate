@@ -18,15 +18,19 @@ public class BookController {
     private final AuthorDao authorDao;
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
+    private final AuthorRepository authorRepository;
+    private final PublisherRepository publisherRepository;
 
 
     @Autowired
-    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao, BookRepository bookRepository, CategoryRepository categoryRepository) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao, BookRepository bookRepository, CategoryRepository categoryRepository, AuthorRepository authorRepository, PublisherRepository publisherRepository) {
         this.bookDao = bookDao;
         this.publisherDao = publisherDao;
         this.authorDao = authorDao;
         this.bookRepository = bookRepository;
         this.categoryRepository = categoryRepository;
+        this.authorRepository = authorRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @ModelAttribute("allPublishers")
@@ -141,14 +145,37 @@ public class BookController {
     @GetMapping("byCategoryName/{category}")
     @ResponseBody
     public List<Book> findBooksByCategory(@PathVariable String category) {
-        Category temp = categoryRepository.findByName(category.replaceAll("%20", " "));
+        Category temp = categoryRepository.findByName(category);
         return bookRepository.findByCategory(temp);
     }
 
     @GetMapping("byCategoryId/{id}")
     @ResponseBody
     public List<Book> findBooksById(@PathVariable String id) {
-        Category category=categoryRepository.findOne(Long.parseLong(id));
+        Category category = categoryRepository.findOne(Long.parseLong(id));
         return bookRepository.findByCategory(category);
     }
+
+    @GetMapping("byAuthor/{author}")
+    @ResponseBody
+    public List<Book> findBooksByAuthor(@PathVariable String author) {
+        String[] nameAuthors = author.split(" ");
+        Author tempAuthor = authorRepository.getByFirstNameAndLastName(nameAuthors[0], nameAuthors[1]);
+        return bookRepository.findByAuthors(tempAuthor);
+    }
+
+    @GetMapping("byPublisher/{publisher}")
+    @ResponseBody
+    public List<Book> findBooksByPublisher(@PathVariable String publisher) {
+        Publisher tempPublisher = publisherRepository.findByName(publisher);
+        return bookRepository.findByPublisher(tempPublisher);
+    }
+
+    @GetMapping("byRating/{rating}")
+    @ResponseBody
+    public List<Book> findBooksByRating(@PathVariable String rating) {
+        return bookRepository.findByRatingGreaterThan(new BigDecimal(rating));
+    }
+
+
 }
